@@ -2,11 +2,9 @@ const Ship = (length, name) => {
     return {
         length,
         name,
-        hull: buildHull(length,),
+        health: length,
         heading:'horizontal',
-        getHeading() {
-            this.heading
-        },
+        location:[],
         changeHeading() {
             if (this.heading === 'horizontal') {
                 this.heading = 'vertical'
@@ -14,12 +12,11 @@ const Ship = (length, name) => {
                 this.heading = 'horizontal'
             }
         },
-        hit(position) {
-            this.hull[position] = 0;
-            return this.hull;
+        hit() {
+            return this.health -= 1;
         },
         isSunk() {
-            if (this.hull.reduce((total, currentPositionValue) => total + currentPositionValue) === 0) {
+            if (this.health === 0) {
                 return true;
             } else {
                 return false;
@@ -28,12 +25,5 @@ const Ship = (length, name) => {
     }
 }
 
-function buildHull(length) {
-    let hull = []
-    for (let i = 0; i < length; i++) {
-        hull.push(1);
-    }
-    return hull;
-}
 
 export default Ship;

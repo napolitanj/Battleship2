@@ -7,17 +7,20 @@ test('Ship has a name and a length', () => {
 });
 
 test('Ship takes a hit', () => {
-    cargo.hit(1)
-    expect(cargo.hull).toEqual([1,0])
+    cargo.hit()
+    expect(cargo.health).toEqual(1)
 });
 
 test('Ship does not sink if health is not 0', () => {
-    cargo.hit(1)
     expect(cargo.isSunk()).toBe(false)
 })
 
 test('Ship sinks', () => {
-    cargo.hit(0);
-    cargo.hit(1);
+    cargo.hit();
     expect(cargo.isSunk()).toBe(true)
+})
+
+test('Ship changes heading', () => {
+    cargo.changeHeading();
+    expect(cargo.heading).toBe('vertical')
 })
