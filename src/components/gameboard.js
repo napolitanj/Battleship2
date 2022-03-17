@@ -2,6 +2,7 @@ const Gameboard = () => {
     return {
         board: Array(100).fill(0),
         occupiedPositions: [],
+        attackedPositions: [],
         placedShips:[],
         placeShip(ship,position) {
             let shipLength = ship.length;
