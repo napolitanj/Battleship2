@@ -2,6 +2,7 @@ import Gameboard from "../components/gameboard.js"
 import Ship from "../components/ship.js"
 
 const Board = Gameboard();
+const BoardTwo = Gameboard();
 const sub = Ship(3,"Submarine")
 const sub2 = Ship(3,"Submarine")
 const destroyer = Ship(3,"Destroyer")
@@ -76,4 +77,10 @@ test('Are all placed ships sunk?', () => {
 
 test('Does the game prevent placements on occupied spaces', () => {
     expect(Board.placeShip(sub2,17)).toBe(false);
+});
+
+test('Can the board randomly place all ships', () => {
+    BoardTwo.randomlyPlaceAllShips()
+    expect(BoardTwo.placedShips.length).toBe(5)
+    expect(BoardTwo.occupiedPositions.length).toBe(17);
 })

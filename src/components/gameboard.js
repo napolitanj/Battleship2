@@ -1,4 +1,5 @@
-/* eslint-disable no-unused-vars */
+import Ship from "../components/ship.js"
+
 const Gameboard = () => {
     return {
         board: Array(100).fill(0),
@@ -49,6 +50,24 @@ const Gameboard = () => {
                     return false;
                 }
             }
+        },
+        randomlyPlaceAllShips(){
+            const cargo = Ship(2,"Cargo Boat")
+            const sub = Ship(3,"Submarine")
+            const destroyer = Ship(3,"Destroyer")
+            const battleship = Ship(4,"Battleship")
+            const carrier = Ship(5,"Aircraft Carrier")
+            const array = [cargo,sub,destroyer,battleship,carrier]
+            let position;
+
+            array.forEach(ship => {
+                position = Math.floor(Math.random()*100)
+                while (isPositionOccupied(ship,position,this.occupiedPositions) === true || isPositionValid(ship,position) === false) {
+                    position = Math.floor(Math.random()*100)
+                }
+                this.placeShip(ship,position)
+            })
+
         }
     }
 };
