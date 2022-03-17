@@ -14,8 +14,8 @@ const element = () => {
     return {
         gameBoardContainer:document.getElementById("gameBoardContainer"),
         display:document.getElementById("displayWindow"),
-        p1board:generateBoard("gameGrid1"),
-        p2board:generateBoard("gameGrid2")
+        p1Board:generateBoard("gameGrid1"),
+        p2Board:generateBoard("gameGrid2")
     }
 };
 

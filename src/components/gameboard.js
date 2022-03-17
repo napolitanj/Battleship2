@@ -61,6 +61,10 @@ const Gameboard = () => {
             let position;
 
             array.forEach(ship => {
+                let orientation = Math.random();
+                if (orientation > .5) {
+                    ship.changeHeading();
+                }
                 position = Math.floor(Math.random()*100)
                 while (isPositionOccupied(ship,position,this.occupiedPositions) === true || isPositionValid(ship,position) === false) {
                     position = Math.floor(Math.random()*100)

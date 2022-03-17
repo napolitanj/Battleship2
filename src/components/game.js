@@ -10,7 +10,11 @@ const Game = () => {
     const computer = Player("Computer")
 
     modDOM.renderBoards();
-    modDOM.changeDisplay("Begin game")
+    modDOM.changeDisplay("Begin game. Player 1, place your Cargo Ship")
+
+    computer.playerBoard.randomlyPlaceAllShips(); 
+    
+    modDOM.renderShips(computer.playerBoard.board)
 }
 
 export default Game;
