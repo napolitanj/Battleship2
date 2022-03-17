@@ -73,3 +73,7 @@ test('Are all placed ships sunk?', () => {
     Board.recieveAttack(35);
     expect(Board.allShipsSunk()).toBe(true);
 });
+
+test('Does the game prevent placements on occupied spaces', () => {
+    expect(Board.placeShip(sub2,17)).toBe(false);
+})
