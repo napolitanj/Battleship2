@@ -10,6 +10,7 @@ const Game = () => {
     const computer = Player("Computer")
 
     modDOM.renderBoards();
+    modDOM.changeDisplay("Begin game")
 }
 
 export default Game;
