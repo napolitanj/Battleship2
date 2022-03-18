@@ -19,7 +19,7 @@ const Game = () => {
     modDOM.renderShips(computer.playerBoard.board,"gameGrid2")
 
     const cargo = (Ship(2,"Cargo Ship"))
-    modDOM.placeShip(cargo)
+    modDOM.renderTentativeShip(player1,cargo)
 }
 
 export default Game;

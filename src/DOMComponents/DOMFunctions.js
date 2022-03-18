@@ -19,10 +19,11 @@ const DOMFunction = () => {
                 }
             }
         },
-        placeShip(ship) {
+        renderTentativeShip(player,ship) {
             ele.p1Board.childNodes.forEach(square => 
-                square.addEventListener("mouseover", function(){displayShipPlacement(square,ship)}));
-            document.addEventListener("keydown", keyboard)
+                square.addEventListener("mouseover", function(){displayShipPlacement(square,ship, player)}));
+            //Shift ship heading
+            document.addEventListener("keydown", keyboard);
             //For keypress
             function keyboard(k) {
                 if (k.key === "Shift") {
@@ -33,7 +34,7 @@ const DOMFunction = () => {
     }
 }
 
-function displayShipPlacement(square,ship) {
+function displayShipPlacement(square,ship, player) {
     const parentGrid = square.parentNode;
     const id = parseInt(square.id)
     let length = ship.length
@@ -53,7 +54,14 @@ function displayShipPlacement(square,ship) {
                 parentGrid.childNodes[id+i*10].style.backgroundColor= "blue"
             }
         }
-    } 
+    }
+    //Place ship on current square
+    square.addEventListener("click", function(){placeShip(player,ship,id)}) 
+}
+
+function placeShip(player, ship,location) {
+    player.playerBoard.placeShip(ship,location)
+    console.log(player.playerBoard.placedShips)
 }
 
 //Check if any siblings are in the next group of "tens"
