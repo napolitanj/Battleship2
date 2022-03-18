@@ -1,6 +1,7 @@
 import Ship from "../components/ship.js"
 
 const Gameboard = () => {
+    
     return {
         board: Array(100).fill(0),
         occupiedPositions: [],
@@ -72,7 +73,7 @@ const Gameboard = () => {
                 this.placeShip(ship,position)
             })
 
-        }
+        },
     }
 };
 

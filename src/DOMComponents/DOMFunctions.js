@@ -18,8 +18,26 @@ const DOMFunction = () => {
                     square.style.backgroundColor = "blue";
                 }
             }
+        },
+        placeShip(ship) {
+            ele.p1Board.childNodes.forEach(square => 
+                square.addEventListener("mouseover", function(){displayShipPlacement(square,ship)}));
         }
     }
+}
+
+function displayShipPlacement(square,ship) {
+    const parentGrid = square.parentNode;
+    const id = parseInt(square.id)
+    let length = ship.length
+    let heading = ship.heading
+
+    parentGrid.childNodes.forEach(square => square.style.backgroundColor = "grey")
+    if (heading === 'horizontal') {
+        for (let i = 0; i < length; i++) {
+            parentGrid.childNodes[id+i].style.backgroundColor= "blue"
+        }
+    }    
 }
 
 

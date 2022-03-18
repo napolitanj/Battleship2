@@ -5,6 +5,7 @@ function generateBoard(cssClass) {
     for (let i = 0; i < 100; i++) {
         const gridSquare = document.createElement("div")
         gridSquare.classList.add("gridSquare");
+        gridSquare.setAttribute("id",i);
         board.appendChild(gridSquare);
     }
     return board;
