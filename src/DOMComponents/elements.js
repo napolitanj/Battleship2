@@ -1,13 +1,13 @@
 function generateBoard(cssClass) {
-    const boardDOM = document.createElement("div");
-    boardDOM.classList.add(cssClass);
+    const board = document.createElement("div");
+    board.classList.add(cssClass);
+    board.setAttribute("id",cssClass);
     for (let i = 0; i < 100; i++) {
         const gridSquare = document.createElement("div")
         gridSquare.classList.add("gridSquare");
-        gridSquare.setAttribute("id",i);
-        boardDOM.appendChild(gridSquare);
+        board.appendChild(gridSquare);
     }
-    return boardDOM;
+    return board;
 }
 
 const element = () => {

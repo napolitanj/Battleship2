@@ -10,9 +10,10 @@ const DOMFunction = () => {
         changeDisplay(text) {
             ele.display.textContent = text;
         },
-        renderShips(array) {
+        renderShips(array,name) {
+            const grid = document.getElementById(name)
             for (let i = 0; i < array.length; i++) {
-                const square = document.getElementById(i)
+                const square = grid.childNodes[i]
                 if (array[i] === 1) {
                     square.style.backgroundColor = "blue";
                 }

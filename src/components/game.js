@@ -14,7 +14,7 @@ const Game = () => {
 
     computer.playerBoard.randomlyPlaceAllShips(); 
     
-    modDOM.renderShips(computer.playerBoard.board)
+    modDOM.renderShips(computer.playerBoard.board,"gameGrid2")
 }
 
 export default Game;
