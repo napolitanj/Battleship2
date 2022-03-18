@@ -26,12 +26,9 @@ const Game = () => {
     player1.playerBoard.placeShip(destroyer, 42)
     player1.playerBoard.placeShip(battleship, 55)
     player1.playerBoard.placeShip(carrier, 62)
+    console.log(player1.playerBoard.placedShips)
 
     modDOM.renderShips(player1.playerBoard.board,"gameGrid1")
-    
-    function computerShoot() {
-        modDOM.shootForComputer(player1,computer)
-    }
 
     modDOM.activateBoardForAttacks(player1,computer)
 }

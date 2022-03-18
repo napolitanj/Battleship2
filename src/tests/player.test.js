@@ -27,3 +27,9 @@ test('Can a player (computer) take a random shot?', () => {
     player2.randomShot(player1)
     expect(player1.playerBoard.board.includes(2) === true || player1.playerBoard.board.includes(3) === true).toBe(true)
 })
+
+test('Can a player sink an enemy ship and end the game?', () => {
+    player1.attack(player2,15)
+    player1.attack(player2,35)
+    expect(player2.playerBoard.allShipsSunk()).toBe(true)
+})

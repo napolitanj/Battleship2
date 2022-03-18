@@ -1,27 +1,54 @@
 import element from "./elements.js"
-import Game from "../components/game.js"
-
 
 const DOMFunction = () => {
     const ele = element()
+
+    function changeDisplay(text) {
+        ele.display.textContent = text;
+    }
     //Fire random shot for computer
     function shootForComputer(player,computer) {
-        let target = Math.floor(Math.random()*100)
-        while (player.playerBoard.attackedPositions.includes(target)) {
-            target = Math.floor(Math.random()*100)
-        }
+        // let target = Math.floor(Math.random()*100)
+        // while (player.playerBoard.attackedPositions.includes(target)) {
+        //     target = Math.floor(Math.random()*100)
+        // }
+        computer.randomShot(player)
         renderComputerShot(target,player,ele.p1Board);
-        computer.attack(player,target)
-        console.log(player.playerBoard.attackedPositions)
         
+        console.log(player.playerBoard.placedShips.forEach(ship => console.log(ship.health)))
+        if (player.playerBoard.allShipsSunk() === true) {
+            changeDisplay("Game over! Computer wins!");
+            console.log("Game over! Computer wins!")
+        } 
+    }
+    function shootForPlayer(square,player,computer) {
+        let target = square.id
+        while (computer.playerBoard.board[target] === 2 || computer.playerBoard.board[target] === 3) {
+            return;
+        }
+        // If a position is occupied by a ship (Hit!)
+        if (computer.playerBoard.board[target] === 1){
+            player.attack(computer,target)
+            square.style.backgroundColor = "red"; 
+        // If a position is not occupied 
+        } else if (computer.playerBoard.board[target] === 0){
+            player.attack(computer,target)
+            square.style.backgroundColor = "white";
+        }
+        // computer.playerBoard.placedShips.forEach(ship => console.log(ship.health))
+    
+        //Check if game ended 
+        if (computer.playerBoard.allShipsSunk() === true) {
+            changeDisplay("Game over! Player 1 wins!");
+            console.log("Game over! Player 1 wins!")
+        } else {
+            shootForComputer(player,computer)
+        }
     }
     return {
         renderBoards() {
             ele.gameBoardContainer.appendChild(ele.p1Board);
             ele.gameBoardContainer.appendChild(ele.p2Board);
-        },
-        changeDisplay(text) {
-            ele.display.textContent = text;
         },
         renderShips(array,name) {
             const grid = document.getElementById(name)
@@ -45,34 +72,10 @@ const DOMFunction = () => {
             }
         },
         activateBoardForAttacks(player,computer) {
-            ele.p2Board.childNodes.forEach(square => square.addEventListener("click", function(){playerDOMShot(square,computer)}));
-            
-            //player.attack(computer,square.id)}))
-            function playerDOMShot(square,computer) {
-                let position = square.id
-                while (computer.playerBoard.board[position] === 2 || computer.playerBoard.board[position === 3]) {
-                    console.log("occupied, try again")
-                    return;
-                }
-                // If a position is occupied by a ship (Hit!)
-                if (computer.playerBoard.board[position] === 1){
-                    computer.playerBoard.recieveAttack(position)
-                    square.style.backgroundColor = "red"; 
-                // If a position is not occupied 
-                } else if (computer.playerBoard.board[position] === 0){
-                    computer.playerBoard.recieveAttack(position)
-                    square.style.backgroundColor = "white";
-                }
-                if (computer.playerBoard.allShipsSunk() === false) {
-                    shootForComputer(player,computer)
-                } else {
-                    this.changeDisplay("Game over! Player 1 wins!");
-                }
-            }
-        },
+            ele.p2Board.childNodes.forEach(square => square.addEventListener("click", function(){shootForPlayer(square,player,computer)}));
+        }
     }
 }
-
 function displayShipPlacement(square,ship, player) {
     const parentGrid = square.parentNode;
     const id = parseInt(square.id)
@@ -126,11 +129,8 @@ function isGameOver(player,computer) {
 function renderComputerShot(target,player,board) {
     const boardSpace = board.childNodes[target];
     const position = parseInt(player.playerBoard.board[target]);
-    // If a position has already been shot or is occupied by a hit ship
-    if (position === 2 || position === 3) {
-        return;
     // If a position is occupied by a ship (Hit!)
-    } else if (position === 1){
+    if (position === 1){
         boardSpace.style.backgroundColor = "red"; 
     // If a position is not occupied 
     } else if (position === 0){
