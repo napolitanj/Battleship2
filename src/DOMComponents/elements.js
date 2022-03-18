@@ -16,7 +16,12 @@ const element = () => {
         gameBoardContainer:document.getElementById("gameBoardContainer"),
         display:document.getElementById("displayWindow"),
         p1Board:generateBoard("gameGrid1"),
-        p2Board:generateBoard("gameGrid2")
+        p2Board:generateBoard("gameGrid2"),
+        cargoIcon:document.getElementById("cargoIcon"),
+        subIcon:document.getElementById("subIcon"),
+        destroyerIcon:document.getElementById("destroyerIcon"),
+        battleshipIcon:document.getElementById("battleshipIcon"),
+        carrierIcon:document.getElementById("carrierIcon"),
     }
 };
 

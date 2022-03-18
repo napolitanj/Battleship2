@@ -1,5 +1,6 @@
 import element from "./elements.js"
 
+
 const DOMFunction = () => {
     const ele = element()
     return {
@@ -19,7 +20,7 @@ const DOMFunction = () => {
                 }
             }
         },
-        renderTentativeShip(player,ship) {
+        placeShip(player,ship) {
             ele.p1Board.childNodes.forEach(square => 
                 square.addEventListener("mouseover", function(){displayShipPlacement(square,ship, player)}));
             //Shift ship heading
@@ -28,6 +29,27 @@ const DOMFunction = () => {
             function keyboard(k) {
                 if (k.key === "Shift") {
                     ship.changeHeading();
+                }
+            }
+        },
+        acceptPlayerShots(player,computer) {
+            ele.p2Board.childNodes.forEach(square => square.addEventListener("click", function(){playerDOMShot(square)}));
+            
+            //player.attack(computer,square.id)}))
+            function playerDOMShot(square) {
+                const position = computer.playerBoard.board[square.id];
+                console.log(position)
+                // If a position has already been shot or is occupied by a hit ship
+                if (position === 2 || position === 3) {
+                    return;
+                // If a position is occupied by a ship (Hit!)
+                } else if (position === 1){
+                    player.attack(computer,square.id)
+                    square.style.backgroundColor = "red"; 
+                // If a position is not occupied 
+                } else if (position === 0){
+                    player.attack(computer,square.id)
+                    square.style.backgroundColor = "white"; 
                 }
             }
         }
@@ -56,12 +78,11 @@ function displayShipPlacement(square,ship, player) {
         }
     }
     //Place ship on current square
-    square.addEventListener("click", function(){placeShip(player,ship,id)}) 
+    square.addEventListener("click", function(){confirmPlacement(player,ship,id)}) 
 }
 
-function placeShip(player, ship,location) {
+function confirmPlacement(player, ship,location) {
     player.playerBoard.placeShip(ship,location)
-    console.log(player.playerBoard.placedShips)
 }
 
 //Check if any siblings are in the next group of "tens"

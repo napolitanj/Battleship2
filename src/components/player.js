@@ -13,7 +13,7 @@ const Player = (name) => {
                 target = Math.floor(Math.random()*100)
             }
             player.playerBoard.recieveAttack(target)
-        }
+        },
     }
 }
 
