@@ -10,8 +10,10 @@ const DOMFunction = () => {
         while (player.playerBoard.attackedPositions.includes(target)) {
             target = Math.floor(Math.random()*100)
         }
-        computerDOMShot(parseInt(target),player, ele.p1Board)
+        renderComputerShot(target,player,ele.p1Board);
         computer.attack(player,target)
+        console.log(player.playerBoard.attackedPositions)
+        
     }
     return {
         renderBoards() {
@@ -48,7 +50,6 @@ const DOMFunction = () => {
             //player.attack(computer,square.id)}))
             function playerDOMShot(square,computer) {
                 let position = square.id
-                console.log(position, computer.playerBoard.board[position])
                 while (computer.playerBoard.board[position] === 2 || computer.playerBoard.board[position === 3]) {
                     console.log("occupied, try again")
                     return;
@@ -62,10 +63,10 @@ const DOMFunction = () => {
                     computer.playerBoard.recieveAttack(position)
                     square.style.backgroundColor = "white";
                 }
-                if (isGameOver(player,computer) === false) {
+                if (computer.playerBoard.allShipsSunk() === false) {
                     shootForComputer(player,computer)
                 } else {
-                    isGameOver(player,computer)
+                    this.changeDisplay("Game over! Player 1 wins!");
                 }
             }
         },
@@ -122,19 +123,18 @@ function isGameOver(player,computer) {
     }
 }
 //Render DOM shot from computer
-function computerDOMShot(square,player,board) {
-    const target = parseInt(square)
-    const position = player.playerBoard.board[target];
-    const squareDOM = board.childNodes[target];
+function renderComputerShot(target,player,board) {
+    const boardSpace = board.childNodes[target];
+    const position = parseInt(player.playerBoard.board[target]);
     // If a position has already been shot or is occupied by a hit ship
     if (position === 2 || position === 3) {
         return;
     // If a position is occupied by a ship (Hit!)
     } else if (position === 1){
-        squareDOM.style.backgroundColor = "red"; 
+        boardSpace.style.backgroundColor = "red"; 
     // If a position is not occupied 
     } else if (position === 0){
-        squareDOM.style.backgroundColor = "white"; 
+        boardSpace.style.backgroundColor = "white"; 
     }
 }
 
