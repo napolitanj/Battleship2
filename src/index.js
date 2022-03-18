@@ -1,3 +1,5 @@
 import Game from "./components/game.js"
 
-Game();
+const newGame = Game();
+
+newGame.intialize();
