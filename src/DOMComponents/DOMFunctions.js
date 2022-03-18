@@ -22,6 +22,13 @@ const DOMFunction = () => {
         placeShip(ship) {
             ele.p1Board.childNodes.forEach(square => 
                 square.addEventListener("mouseover", function(){displayShipPlacement(square,ship)}));
+            document.addEventListener("keydown", keyboard)
+            //For keypress
+            function keyboard(k) {
+                if (k.key === "Shift") {
+                    ship.changeHeading();
+                }
+            }
         }
     }
 }
@@ -31,13 +38,33 @@ function displayShipPlacement(square,ship) {
     const id = parseInt(square.id)
     let length = ship.length
     let heading = ship.heading
+    let lastVertPosition = 100-(10*(length-1))
 
     parentGrid.childNodes.forEach(square => square.style.backgroundColor = "grey")
     if (heading === 'horizontal') {
         for (let i = 0; i < length; i++) {
-            parentGrid.childNodes[id+i].style.backgroundColor= "blue"
+            if (checkPosition(id,length) === true) {
+                parentGrid.childNodes[id+i].style.backgroundColor= "blue"
+            }
         }
-    }    
+    } else {
+        for (let i = 0; i < length; i++) {
+            if (id < lastVertPosition) {
+                parentGrid.childNodes[id+i*10].style.backgroundColor= "blue"
+            }
+        }
+    } 
+}
+
+//Check if any siblings are in the next group of "tens"
+function checkPosition(id,length) {
+    let start = id.toString().split('')
+    let end = (id+length-1).toString().split('')
+    if (start[0] === end[0] || id+length-1 < 10) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 

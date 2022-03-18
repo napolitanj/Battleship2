@@ -12,11 +12,12 @@ const Game = () => {
 
     //Activate Boards and Display, generate computer ship placements
     modDOM.renderBoards();
-    modDOM.changeDisplay("Begin game. Player 1, place your Cargo Ship")
+    modDOM.changeDisplay(`Begin game. Player 1, place your Cargo Ship. Tap "shift" to change your ship's heading.` )
     computer.playerBoard.randomlyPlaceAllShips(); 
     
     //Temporary
     modDOM.renderShips(computer.playerBoard.board,"gameGrid2")
+
     const cargo = (Ship(2,"Cargo Ship"))
     modDOM.placeShip(cargo)
 }
