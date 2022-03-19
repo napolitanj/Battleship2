@@ -29,6 +29,9 @@ const Gameboard = () => {
             }
         },
         recieveAttack(position) {
+            if (this.attackedPositions.includes(position) === true) {
+                return;
+            }
             this.attackedPositions.push(position);
             if (this.occupiedPositions.includes(position)) {
                 this.board[position] = 3;
