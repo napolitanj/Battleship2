@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import DOMFunction from "../DOMComponents/DOMFunctions.js"
 import Gameboard from "../components/gameboard.js"
 
@@ -35,6 +34,9 @@ const Game = () => {
         }
     }
     function playerAttack(id) {
+        if (computerBoard.attackedPositions.includes(id)) {
+            return
+        }
         computerBoard.recieveAttack(id)
         modDOM.shootDOMComputerBoard(computerBoard.board, id)
         computerBoard.checkShips("p2")
@@ -49,10 +51,10 @@ const Game = () => {
         if (isGameOver() === true) {
             return;
         }
-    }
-    function gameLoop(e) {
         modDOM.changeDisplay1("Choose your target")
         modDOM.changeDisplay2("")
+    }
+    function gameLoop(e) {
         const target = e.target;
         const id = parseInt(target.id);
         playerAttack(id);
@@ -63,17 +65,3 @@ const Game = () => {
 
 
 export default Game;
-=======
-import Gameboard from "../components/gameboard.js"
-import Player from "../components/player.js"
-
-
-//Initialize Game
-const Game = () => {
-    
-    //Create Human and Computer player
-    const player1 = Player("Player 1")
-    const computer = Player("Computer")
-
-}
->>>>>>> game-controller
