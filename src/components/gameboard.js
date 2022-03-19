@@ -77,6 +77,14 @@ const Gameboard = () => {
             })
 
         },
+        recieveRandomAttack() {
+            let target = Math.floor(Math.random()*100)
+            while (this.attackedPositions.includes(target)) {
+                target = Math.floor(Math.random()*100)
+            }
+            this.recieveAttack(target)
+            return target;
+        }
     }
 };
 

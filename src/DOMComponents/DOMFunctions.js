@@ -21,11 +21,19 @@ const DOMFunction = () => {
             this.DOMBoard1.childNodes.forEach(node => node.style.backgroundColor = colorSquare(playerBoard,node))
             this.DOMBoard2.childNodes.forEach(node => node.style.backgroundColor = colorSquare(computerBoard,node))
         },
-        shootComputerDOMBoard(board, target) {
+        shootDOMComputerBoard(board, target) {
             const square = document.getElementById("gameGrid2").childNodes[target]
-            // while (board.board[target] === 2 || board.board[target] === 3) {
-            //     return;
-            // }
+            // If a position is occupied by a ship (Hit!)
+            if (board[target] === 3){
+                square.style.backgroundColor = "red"; 
+            // If a position is not occupied 
+            } else if (board[target] === 2){
+                square.style.backgroundColor = "white";
+            }
+        },
+        shootDOMPlayerBoard(board, target) {
+            const square = document.getElementById("gameGrid1").childNodes[target]
+            console.log(board[target])
             // If a position is occupied by a ship (Hit!)
             if (board[target] === 3){
                 square.style.backgroundColor = "red"; 
