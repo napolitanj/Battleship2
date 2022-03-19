@@ -33,7 +33,6 @@ const DOMFunction = () => {
         },
         shootDOMPlayerBoard(board, target) {
             const square = document.getElementById("gameGrid1").childNodes[target]
-            console.log(board[target])
             // If a position is occupied by a ship (Hit!)
             if (board[target] === 3){
                 square.style.backgroundColor = "red"; 
