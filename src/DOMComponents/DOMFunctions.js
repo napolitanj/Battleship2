@@ -17,9 +17,8 @@ const DOMFunction = () => {
     return {
         DOMBoard1:ele.gameBoardContainer.appendChild(ele.p1Board),
         DOMBoard2:ele.gameBoardContainer.appendChild(ele.p2Board),
-        refreshBoard(playerBoard,computerBoard) {
+        refreshBoard(playerBoard) {
             this.DOMBoard1.childNodes.forEach(node => node.style.backgroundColor = colorSquare(playerBoard,node))
-            this.DOMBoard2.childNodes.forEach(node => node.style.backgroundColor = colorSquare(computerBoard,node))
         },
         shootDOMComputerBoard(board, target) {
             const square = document.getElementById("gameGrid2").childNodes[target]
