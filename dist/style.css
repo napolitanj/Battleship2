@@ -29,7 +29,6 @@ body {
 }
 
 .displayWindow {
-  color: white;
   background-color: black;
   height: 200px;
   width: 200px;
@@ -37,6 +36,11 @@ body {
   border-radius: 5px;
   margin-left: 30px;
   margin-right: 30px;
+}
+
+.displayText1,
+.displayText2 {
+  color: white;
 }
 
 .playerNames {
@@ -52,7 +56,8 @@ body {
   margin-top: 20px;
 }
 
-.gridSquare {
+.gridSquare,
+.computerGridSquare {
   height: 25px;
   width: 25px;
   border: 2px solid black;

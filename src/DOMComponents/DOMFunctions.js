@@ -40,6 +40,12 @@ const DOMFunction = () => {
             } else if (board[target] === 2){
                 square.style.backgroundColor = "white";
             }
+        },
+        changeDisplay1(text) {
+            ele.displayText1.textContent = text;
+        },
+        changeDisplay2(text) {
+            ele.displayText2.textContent = text;
         }
     }
 }

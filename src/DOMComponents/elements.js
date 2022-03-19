@@ -1,10 +1,10 @@
-function generateBoard(cssClass) {
+function generateBoard(cssClass,squareClass) {
     const board = document.createElement("div");
     board.classList.add(cssClass);
     board.setAttribute("id",cssClass);
     for (let i = 0; i < 100; i++) {
         const gridSquare = document.createElement("div")
-        gridSquare.classList.add("gridSquare");
+        gridSquare.classList.add(squareClass);
         gridSquare.setAttribute("id",i);
         board.appendChild(gridSquare);
     }
@@ -14,9 +14,10 @@ function generateBoard(cssClass) {
 const element = () => {
     return {
         gameBoardContainer:document.getElementById("gameBoardContainer"),
-        display:document.getElementById("displayWindow"),
-        p1Board:generateBoard("gameGrid1"),
-        p2Board:generateBoard("gameGrid2"),
+        displayText1:document.getElementById("displayText1"),
+        displayText2:document.getElementById("displayText2"),
+        p1Board:generateBoard("gameGrid1","gridSquare"),
+        p2Board:generateBoard("gameGrid2","computerGridSquare"),
         cargoIcon:document.getElementById("cargoIcon"),
         subIcon:document.getElementById("subIcon"),
         destroyerIcon:document.getElementById("destroyerIcon"),

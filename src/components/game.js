@@ -1,4 +1,3 @@
-import Player from "../components/player.js"
 import DOMFunction from "../DOMComponents/DOMFunctions.js"
 import Gameboard from "../components/gameboard.js"
 
@@ -14,18 +13,20 @@ const Game = () => {
         modDOM.refreshBoard(p1Board.board,computerBoard.board);
     }
     function addListeners() {
-        document.getElementById("gameGrid2").addEventListener("click", gameLoop);
+        document.querySelectorAll(".computerGridSquare").forEach(node => node.addEventListener("click", gameLoop));
     }
     function removeListeners() {
         document.getElementById("gameGrid2").removeEventListener("click", gameLoop);
     }
     function isGameOver() {
         if (p1Board.allShipsSunk() === true) {
-            console.log("Computer Wins!", p1Board.placedShips)
+            modDOM.changeDisplay1("Computer Wins!")
+            modDOM.changeDisplay2("Refresh the page to start a new game.")
             removeListeners();
             return;
         } else if (computerBoard.allShipsSunk() === true) {
-            console.log("Player 1 Wins!", computerBoard.placedShips)
+            modDOM.changeDisplay1("Player 1 Wins!")
+            modDOM.changeDisplay2("Refresh the page to start a new game.")
             removeListeners();
             return;
         } else {
@@ -51,11 +52,12 @@ const Game = () => {
         }
     }
     function gameLoop(e) {
+        modDOM.changeDisplay2("Choose your target")
         const target = e.target;
+        console.log(target)
         const id = parseInt(target.id);
         playerAttack(id);
     }
-    
     initialize();
     addListeners();
 }

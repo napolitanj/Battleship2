@@ -75,6 +75,7 @@ const Gameboard = () => {
             }
             this.attackedPositions.push(position);
             if (this.occupiedPositions.includes(position)) {
+                
                 this.board[position] = 3;
                 this.placedShips.forEach(ship => {
                     if (ship.location.includes(position)) {
