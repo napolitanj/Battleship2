@@ -17,7 +17,6 @@ const Ship = (length, name) => {
         },
         isSunk() {
             if (this.health === 0) {
-                console.log(this.name + " sunk!")
                 return true;
             } else {
                 return false;

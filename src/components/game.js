@@ -34,27 +34,25 @@ const Game = () => {
         }
     }
     function playerAttack(id) {
-        if (computerBoard.attackedPositions.includes(id) || typeof(id) !== "number") {
-            return
-        } else {
-            computerBoard.recieveAttack(id)
-            modDOM.shootDOMComputerBoard(computerBoard.board, id)
-            if (isGameOver() === false) {
-                computerAttack();
-            }
+        computerBoard.recieveAttack(id)
+        modDOM.shootDOMComputerBoard(computerBoard.board, id)
+        computerBoard.checkShips("p2")
+        if (isGameOver() === false) {
+            computerAttack();
         }
     }
     function computerAttack() {
         let p1Target = p1Board.recieveRandomAttack();
         modDOM.shootDOMPlayerBoard(p1Board.board, parseInt(p1Target))
+        p1Board.checkShips("p1")
         if (isGameOver() === true) {
             return;
         }
     }
     function gameLoop(e) {
-        modDOM.changeDisplay2("Choose your target")
+        modDOM.changeDisplay1("Choose your target")
+        modDOM.changeDisplay2("")
         const target = e.target;
-        console.log(target)
         const id = parseInt(target.id);
         playerAttack(id);
     }

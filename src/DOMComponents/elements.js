@@ -18,11 +18,6 @@ const element = () => {
         displayText2:document.getElementById("displayText2"),
         p1Board:generateBoard("gameGrid1","gridSquare"),
         p2Board:generateBoard("gameGrid2","computerGridSquare"),
-        cargoIcon:document.getElementById("cargoIcon"),
-        subIcon:document.getElementById("subIcon"),
-        destroyerIcon:document.getElementById("destroyerIcon"),
-        battleshipIcon:document.getElementById("battleshipIcon"),
-        carrierIcon:document.getElementById("carrierIcon"),
     }
 };
 

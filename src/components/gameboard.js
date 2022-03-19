@@ -88,6 +88,13 @@ const Gameboard = () => {
                 this.board[position] = 2;
             }
         },
+        checkShips(player) {
+            this.placedShips.forEach(ship => {
+                if (ship.isSunk() === true) {
+                    document.getElementById(player+ ship.name).src = "dist/icons/x.png"
+                }
+            })
+        },
         allShipsSunk() {
             if (this.board.indexOf(1) === -1) {
                 return true
@@ -96,11 +103,11 @@ const Gameboard = () => {
             }
         },
         randomlyPlaceAllShips(){
-            const cargo = Ship(2,"Cargo Boat")
+            const cargo = Ship(2,"Cargo")
             const sub = Ship(3,"Submarine")
             const destroyer = Ship(3,"Destroyer")
             const battleship = Ship(4,"Battleship")
-            const carrier = Ship(5,"Aircraft Carrier")
+            const carrier = Ship(5,"Carrier")
             const array = [cargo,sub,destroyer,battleship,carrier]
             let position;
 
@@ -125,6 +132,7 @@ const Gameboard = () => {
             this.recieveAttack(target)
             return target;
         }
+    
     }
 };
 
