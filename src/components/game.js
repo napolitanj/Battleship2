@@ -5,8 +5,6 @@ import Gameboard from "../components/gameboard.js"
 //Initialize Game
 const Game = () => {
     const modDOM = DOMFunction();
-    const player1 = Player("Player 1");
-    const computer = Player("Computer");
     const p1Board = Gameboard();
     const computerBoard = Gameboard();
 
@@ -15,40 +13,51 @@ const Game = () => {
         p1Board.randomlyPlaceAllShips();
         modDOM.refreshBoard(p1Board.board,computerBoard.board);
     }
-    function addListenersToGrids() {
-        document.getElementById("gameGrid2").addEventListener("click", attack);
+    function addListeners() {
+        document.getElementById("gameGrid2").addEventListener("click", gameLoop);
     }
-    function attack(e) {
-        const target = e.target;
-        const id = parseInt(target.id);
-        console.log(id)
-        if (id === "gameGrid2" || computerBoard.attackedPositions.includes(id)) {
-            return
-        } else {
-            computerBoard.recieveAttack(id)
-            modDOM.shootDOMComputerBoard(computerBoard.board, id)
-        }
-        if (checkIfGameOver() === false) {
-            let p1Target = p1Board.recieveRandomAttack();
-            modDOM.shootDOMPlayerBoard(p1Board.board, parseInt(p1Target))
-        }
-        if (checkIfGameOver() === true) {
+    function removeListeners() {
+        document.getElementById("gameGrid2").removeEventListener("click", gameLoop);
+    }
+    function isGameOver() {
+        if (p1Board.allShipsSunk() === true) {
+            console.log("Computer Wins!", p1Board.placedShips)
+            removeListeners();
             return;
-        }
-    }
-    function checkIfGameOver() {
-        if (computerBoard.allShipsSunk() === true) {
-            console.log('Player 1 wins! Game Over.')
-            return true; 
-        } else if (p1Board.allShipsSunk() === true) {
-            console.log('Computer wins! Game Over.');
-            return true;
+        } else if (computerBoard.allShipsSunk() === true) {
+            console.log("Player 1 Wins!", computerBoard.placedShips)
+            removeListeners();
+            return;
         } else {
             return false;
         }
     }
+    function playerAttack(id) {
+        if (computerBoard.attackedPositions.includes(id) || typeof(id) !== "number") {
+            return
+        } else {
+            computerBoard.recieveAttack(id)
+            modDOM.shootDOMComputerBoard(computerBoard.board, id)
+            if (isGameOver() === false) {
+                computerAttack();
+            }
+        }
+    }
+    function computerAttack() {
+        let p1Target = p1Board.recieveRandomAttack();
+        modDOM.shootDOMPlayerBoard(p1Board.board, parseInt(p1Target))
+        if (isGameOver() === true) {
+            return;
+        }
+    }
+    function gameLoop(e) {
+        const target = e.target;
+        const id = parseInt(target.id);
+        playerAttack(id);
+    }
+    
     initialize();
-    addListenersToGrids();
+    addListeners();
 }
 
 

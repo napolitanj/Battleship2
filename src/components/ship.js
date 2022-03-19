@@ -13,10 +13,11 @@ const Ship = (length, name) => {
             }
         },
         hit() {
-            return this.health -= 1;
+            return this.health += -1;
         },
         isSunk() {
             if (this.health === 0) {
+                console.log(this.name + " sunk!")
                 return true;
             } else {
                 return false;

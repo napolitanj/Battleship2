@@ -84,3 +84,11 @@ test('Can the board randomly place all ships', () => {
     expect(BoardTwo.placedShips.length).toBe(5)
     expect(BoardTwo.occupiedPositions.length).toBe(17);
 })
+
+test('Can a board recieve a random attack', () => {
+    Board.recieveRandomAttack()
+    expect(Board.board.includes(2) === true || Board.board.includes(3) === true).toBe(true)
+    expect(Board.recieveRandomAttack()).toBeGreaterThanOrEqual(0)
+    expect(Board.recieveRandomAttack()).toBeLessThan(101)
+
+})

@@ -1,7 +1,48 @@
 import Ship from "../components/ship.js"
 
 const Gameboard = () => {
-    
+    //Prevents ship from being placed "outside of grid"
+    function isPositionValid(ship, position) {
+        let length = ship.length;
+        if (ship.heading === 'horizontal') {
+            let start = position.toString().split('')
+            let end = (position+length-1).toString().split('')
+            if (start[0] === end[0] || position+length-1 < 10) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (position <= 100-(10*(length-1))) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    function isPositionOccupied(ship,position, occupiedPositions) {
+        let length = ship.length;
+        let heading = ship.heading
+        let potentialPlacements = []
+
+        if (heading === 'horizontal') { 
+            for (let i = position; i < position+length; i++) {
+                potentialPlacements.push(i)
+            }
+        } else if (heading === 'vertical') {
+            for (let i = position; i < position+length*10; i+=10) {
+                potentialPlacements.push(i)
+            }
+        }
+        if (checkIfOccupied(occupiedPositions,potentialPlacements) === true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function checkIfOccupied(array1,array2) {
+        return array1.some(item => array2.includes(item))
+    }
     return {
         board: Array(100).fill(0),
         occupiedPositions: [],
@@ -47,12 +88,10 @@ const Gameboard = () => {
             }
         },
         allShipsSunk() {
-            for (let i = 0; i < this.placedShips.length; i++) {
-                if (this.placedShips[i].isSunk() === true) {
-                    return true
-                } else {
-                    return false;
-                }
+            if (this.board.indexOf(1) === -1) {
+                return true
+            } else {
+                return false;
             }
         },
         randomlyPlaceAllShips(){
@@ -78,9 +117,9 @@ const Gameboard = () => {
 
         },
         recieveRandomAttack() {
-            let target = Math.floor(Math.random()*100)
+            let target = Math.floor(Math.random()*101)
             while (this.attackedPositions.includes(target)) {
-                target = Math.floor(Math.random()*100)
+                target = Math.floor(Math.random()*101)
             }
             this.recieveAttack(target)
             return target;
@@ -88,47 +127,5 @@ const Gameboard = () => {
     }
 };
 
-//Prevents ship from being placed "outside of grid"
-function isPositionValid(ship, position) {
-    let length = ship.length;
-    if (ship.heading === 'horizontal') {
-        let start = position.toString().split('')
-        let end = (position+length-1).toString().split('')
-        if (start[0] === end[0] || position+length-1 < 10) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        if (position <= 100-(10*(length-1))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-function isPositionOccupied(ship,position, occupiedPositions) {
-    let length = ship.length;
-    let heading = ship.heading
-    let potentialPlacements = []
-
-    if (heading === 'horizontal') { 
-        for (let i = position; i < position+length; i++) {
-            potentialPlacements.push(i)
-        }
-    } else if (heading === 'vertical') {
-        for (let i = position; i < position+length*10; i+=10) {
-            potentialPlacements.push(i)
-        }
-    }
-    if (checkIfOccupied(occupiedPositions,potentialPlacements) === true) {
-        return true;
-    } else {
-        return false;
-    }
-}
-function checkIfOccupied(array1,array2) {
-    return array1.some(item => array2.includes(item))
-}
 
 export default Gameboard;
