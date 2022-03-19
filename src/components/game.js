@@ -22,13 +22,11 @@ const Game = () => {
 
     function attackSquare(e) {
         const target = e.target;
-        const id = e.target.id;
-        console.log(target)
+        const id = parseInt(target.id);
         if (id !== "gameGrid2") {
             computerBoard.recieveAttack(id)
+            modDOM.shootComputerDOMBoard(computerBoard.board, id)
         }
-        console.log(computerBoard.attackedPositions)
-        modDOM.refreshBoard(p1Board.board,computerBoard.board);
     }
 
 
