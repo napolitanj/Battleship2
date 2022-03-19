@@ -2,40 +2,32 @@ import element from "./elements.js"
 
 const DOMFunction = () => {
     const ele = element();
-
-    function colorSquare(player,node) {
-        const playerBoard = player.playerBoard.board;
+    function colorSquare(board,node) {
         const id = node.id;
-        if (playerBoard[id] === 1) {
+        if (board[id] === 1) {
             return "blue";
-        } else if (playerBoard[id] === 2) {
+        } else if (board[id] === 2) {
             return "white";
-        } else if (playerBoard[id] === 3) {
+        } else if (board[id] === 3) {
             return "red";
         } else {
             return;
         }
     }
-
     return {
-        renderBoards() {
-            ele.gameBoardContainer.appendChild(ele.p1Board);
-            ele.gameBoardContainer.appendChild(ele.p2Board);
+        DOMBoard1:ele.gameBoardContainer.appendChild(ele.p1Board),
+        DOMBoard2:ele.gameBoardContainer.appendChild(ele.p2Board),
+        refreshBoard(playerBoard,computerBoard) {
+            this.DOMBoard1.childNodes.forEach(node => node.style.backgroundColor = colorSquare(playerBoard,node))
+            this.DOMBoard2.childNodes.forEach(node => node.style.backgroundColor = colorSquare(computerBoard,node))
         },
-        refreshBoard(player) {
-            let board;
-            if (player.name === "Computer") {
-                board = ele.p2Board;
-            } else {
-                board = ele.p1Board;
-            }
-            board.childNodes.forEach(node => node.style.backgroundColor = colorSquare(player,node))
-        },
-        activateBoardForAttacks(player,computer) {
-            ele.p2Board.childNodes.forEach(square => square.addEventListener("click", function(){shootForPlayer(square,player,computer)}));
+        shootForPlayer(square,player) {
+            const id = square.id;
+            player.playerBoard.recieveAttack(id)
+            console.log(player.playerBoard.attackedPositions)
+            this.refreshBoard(player)
         }
     }
-
 }
 
 

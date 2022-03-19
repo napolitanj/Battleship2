@@ -1,6 +1,6 @@
 import Player from "../components/player.js"
 import DOMFunction from "../DOMComponents/DOMFunctions.js"
-import Ship from "../components/ship.js"
+import Gameboard from "../components/gameboard.js"
 
 //Initialize Game
 const Game = () => {
@@ -8,20 +8,17 @@ const Game = () => {
         modDOM:DOMFunction(),
         player1:Player("Player 1"),
         computer:Player("Computer"),
+        p1Board:Gameboard(),
+        computerBoard:Gameboard(),
         intialize() {
-            this.modDOM.renderBoards();
-            this.computer.playerBoard.randomlyPlaceAllShips();
-            this.modDOM.activateBoardForAttacks(this.player1,this.computer)
-            this.temporaryShipPlacement()
-            this.modDOM.refreshBoard(this.player1);
-            this.modDOM.refreshBoard(this.computer);
+            this.computerBoard.randomlyPlaceAllShips();
+            this.p1Board.randomlyPlaceAllShips();
+            this.modDOM.refreshBoard(this.p1Board.board,this.computerBoard.board);
         },
-        gameLoop(target){
-            this.player1.attack(this.computer,target)
-            this.modDOM.refreshBoard(this.player1);
+        gameLoop(){
+            this.clickToShoot(this.modDOM,this.computer);
             this.checkIfGameOver(this.player1)
-            this.computer.randomShot(this.player)
-            this.modDOM.refreshBoard(this.computer);
+            this.computer.randomShot(this.player1)
             this.checkIfGameOver(this.computer)
         },
         checkIfGameOver(player) {
@@ -30,19 +27,8 @@ const Game = () => {
                 return
             } 
         },
-        temporaryShipPlacement() {
-            const cargo = Ship(2, "Cargo Ship")
-            const sub = Ship(3, "Submarine")
-            const destroyer = Ship(3, "Destroyer")
-            const battleship = Ship(4, "Battleship")
-            const carrier = Ship(5, "Carrier")
-
-            this.player1.playerBoard.placeShip(cargo, 10)
-            this.player1.playerBoard.placeShip(sub, 23)
-            this.player1.playerBoard.placeShip(destroyer, 42)
-            this.player1.playerBoard.placeShip(battleship, 55)
-            this.player1.playerBoard.placeShip(carrier, 62)
-            console.log(this.player1.playerBoard.placedShips)
+        clickToShoot(dom,computer) {
+            dom.ele.p2Board.childNodes.forEach(square => square.addEventListener("click", function(){dom.shootForPlayer(square,computer)}));
         }
     }
 }
